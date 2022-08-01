@@ -20,6 +20,16 @@ def creates_tables():
 def list_citas(db:Session = Depends(get_db)):
     return db.query(Citas).all();
 
+
+@router.get('/liById/{id}')
+def get_citas(id:int,db:Session = Depends(get_db)):
+    citas_data = db.query(Citas).filter(Citas.id == id).first()
+    if not citas_data:
+        raise HTTPException(status_code=404,detail="Citas no existe")
+    return citas_data
+
+
+
 @router.post('/create')
 def create_citas(CitasBase:CitasBase,db:Session = Depends(get_db)):
     row_item = Citas(**CitasBase.dict())

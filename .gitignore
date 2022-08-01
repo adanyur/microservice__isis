@@ -1,0 +1,8 @@
+*.pyc
+**/__pycache__/
+
+*.ini
+*.log
+
+/site_ini
+/static
