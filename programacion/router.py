@@ -1,4 +1,4 @@
-from fastapi import Depends,APIRouter
+from fastapi import Depends,APIRouter, HTTPException
 from models import Programacion
 from schemas import ProgramacionSchema,ProgramacionBase
 from sqlalchemy.orm import Session
@@ -17,9 +17,10 @@ def get_programacion(id:int,db:Session = Depends(get_db)):
 
     data = db.query(Programacion).filter(Programacion.id==id).first()
 
-    if data:
-        return data
-    return {"message":f'''No hay data con el id {id}'''}
+    if not data:
+        raise HTTPException(status_code=404, detail='No hay data')
+
+    return data
 
 
 @router.post('/create')
@@ -36,29 +37,25 @@ def update_programacion(id:int,programacionBase:ProgramacionBase,db:Session = De
 
     data = db.query(Programacion).filter(Programacion.id == id).first()
 
-    if data :
-        data.idmedico  = programacionBase.idmedico
-        data.idconsultorio = programacionBase.idconsultorio
-        data.idespecialidad = programacionBase.idespecialidad
-        data.idturno = programacionBase.idturno
-        data.fecha = programacionBase.fecha
-        data.estado = programacionBase.estado
-        data.cupos = programacionBase.cupos
-        data.minutos = programacionBase.minutos
-        data.observacion = programacionBase.observacion
+    if not data:
+        raise HTTPException(status_code=404, detail='Programacion no existe')
 
-        db.commit()
-        db.refresh(data)
-        return {"message":f''' Se actualizado'''}
-    return {"message":f''' No hay data con el id {id}'''}
+    for key,value in programacionBase.dict(exclude_unset=True).items():
+        setattr(data,key,value)
+    db.add(data)
+    db.commit()
+    db.refresh(data)
+    return {"message":f''' Se actualizado'''}
 
 
 @router.delete('delete/{id}')
 def delete_programacion(id:int,db:Session = Depends(get_db)):
-
+    
     data = db.query(Programacion).filter(Programacion.id == id).first()
-    if data:
-        db.delete(data)
-        db.commit()
-        return {"message":f''' Se eleimino la programacion con el id {id} ''' }
-    return {"message":f'''No exite programacion con el id {id}'''}
+
+    if not data:
+        raise HTTPException(status_code=404, detail='No existe programacion')
+
+    db.delete(data)
+    db.commit()
+    return {"message":f''' Se eleimino la programacion con el id {id} ''' }
