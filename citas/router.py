@@ -4,8 +4,6 @@ from schemas import CitasBase
 from sqlalchemy.orm import Session
 from db import get_db,Base,engine
 
-
-
 router = APIRouter(prefix='/citas',tags=['Citas'])
 
 
@@ -41,13 +39,4 @@ def update_citas(id:int,CitasBase:CitasBase,db:Session = Depends(get_db)):
 @router.post('/')
 def list_horarios():
     return;
-
-
-
-
-
-
-
-
-
 
