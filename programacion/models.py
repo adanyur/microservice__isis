@@ -1,4 +1,4 @@
-from db import Base
+from db import Base,engine
 from sqlalchemy import Column,String,Integer,Time,Text,Date,ForeignKey
 from sqlalchemy.orm import relationship
 
@@ -37,3 +37,8 @@ class Programacion(Base):
     consultorio =  relationship("Consultorios", backref="consultorio")
     especialidad =  relationship("Especialidades", backref="especialidad")
     turno = relationship("Turnos", backref="turno")
+
+
+def create_table():
+    Base.metadata.create_all(bind=engine)
+create_table()
