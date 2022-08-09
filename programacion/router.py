@@ -1,15 +1,13 @@
 from fastapi import Depends,APIRouter, HTTPException
 from sqlalchemy import distinct
 from models import Programacion,create_table
-from schemas import ProgramacionSchema,ProgramacionBase,ProgramacionEspecialidadesEsquema,ProgramacionMedicosEsquema
+from schemas import ProgramacionSchema,ProgramacionBase,ProgramacionEspecialidadesEsquema
 from typing import List
 from sqlalchemy.orm import Session
 from db import get_db
 
 
 router = APIRouter(prefix='/programacion',tags=['Programacion'])
-
-
 
 
 @router.get('/createTables')
@@ -40,10 +38,15 @@ def get_fecha_programacion(fecha:str,db:Session = Depends(get_db)):
 
 @router.get('/listEspecialidades/{fecha}',response_model=List[ProgramacionEspecialidadesEsquema])
 def get_fecha_especialidad_programacion(fecha:str,db:Session = Depends(get_db)):
-    return db.query(Programacion).distinct(Programacion.idespecialidad).filter(Programacion.fecha==fecha).all()
+
+    especialidad_data = db.query(Programacion).distinct(Programacion.idespecialidad).filter(Programacion.fecha==fecha).all()
+
+    if not especialidad_data:
+        raise   HTTPException(status_code=404, detail=f'''No hay programacion para hoy {fecha}''')
+    return especialidad_data
 
 
-@router.get('/listMedicos/{fecha}/{idespecialidad}',response_model=List[ProgramacionMedicosEsquema])
+@router.get('/listMedicos/{fecha}/{idespecialidad}',response_model=List[ProgramacionSchema])
 def get_fecha_medico_programacion(fecha:str,idespecialidad:int,db:Session = Depends(get_db)):
     return  db.query(Programacion).filter(Programacion.fecha==fecha , Programacion.idespecialidad==idespecialidad).all()
 

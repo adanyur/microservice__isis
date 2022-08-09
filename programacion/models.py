@@ -3,8 +3,8 @@ from sqlalchemy import Column,String,Integer,Time,Text,Date,ForeignKey,Boolean
 from sqlalchemy.orm import relationship
 
 
-class Medicos(Base):
-    __tablename__ = "medicos"
+class Medico(Base):
+    __tablename__ = "medico"
     id = Column(Integer, primary_key=True,autoincrement=True)
     idespecialidad = Column(Integer)
     nombres = Column(String)
@@ -12,22 +12,22 @@ class Medicos(Base):
     estado = Column(Boolean,default=True)
 
 
-class Consultorios(Base):
-    __tablename__ = "consultorios"
+class Consultorio(Base):
+    __tablename__ = "consultorio"
     id = Column(Integer, primary_key=True,autoincrement=True)
     descripcion = Column(String)
     estado = Column(Boolean,default=True)
 
 
-class Especialidades(Base):
-    __tablename__ = "especialidades"
+class Especialidad(Base):
+    __tablename__ = "especialidad"
     id = Column(Integer, primary_key=True,autoincrement=True)
     descripcion = Column(String)
     estado = Column(Boolean,default=True)
 
 
-class Turnos(Base):
-    __tablename__ = "turnos"
+class Turno(Base):
+    __tablename__ = "turno"
     id = Column(Integer, primary_key=True,autoincrement=True)
     descripcion = Column(String)
     horainicio = Column(Time)
@@ -45,15 +45,14 @@ class Programacion(Base):
     cupos =  Column(Integer)
     minutos = Column(Time)
     observacion = Column(Text)
-    idmedico = Column(Integer, ForeignKey("medicos.id"))
-    idconsultorio =  Column(Integer, ForeignKey("consultorios.id"))
-    idespecialidad =  Column(Integer, ForeignKey("especialidades.id"))
-    idturno = Column(Integer, ForeignKey("turnos.id"))
-    medico = relationship("Medicos", backref="medico")
-    consultorio =  relationship("Consultorios", backref="consultorio")
-    especialidad =  relationship("Especialidades", backref="especialidad")
-    turno = relationship("Turnos", backref="turno")
-
+    idmedico = Column(Integer, ForeignKey("medico.id"))
+    idconsultorio =  Column(Integer, ForeignKey("consultorio.id"))
+    idespecialidad =  Column(Integer, ForeignKey("especialidad.id"))
+    idturno = Column(Integer, ForeignKey("turno.id"))
+    medico = relationship("Medico", backref="medico")
+    consultorio =  relationship("Consultorio", backref="consultorio")
+    especialidad =  relationship("Especialidad", backref="especialidad")
+    turno = relationship("Turno", backref="turno")
 
 
 

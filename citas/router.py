@@ -1,8 +1,10 @@
 from fastapi import Depends,APIRouter, HTTPException
 from models import Citas
-from schemas import CitasBase
+from schemas import CitasBase,PlantillaHorariosBase,CitasSquema,PlantillaHorariosSquema
 from sqlalchemy.orm import Session
 from db import get_db,Base,engine
+from typing import List
+from datetime import datetime,timedelta,time
 
 router = APIRouter(prefix='/citas',tags=['Citas'])
 
@@ -29,7 +31,6 @@ def get_citas(id:int,db:Session = Depends(get_db)):
     return citas_data
 
 
-
 @router.post('/create')
 def create_citas(CitasBase:CitasBase,db:Session = Depends(get_db)):
     row_item = Citas(**CitasBase.dict())
@@ -46,7 +47,18 @@ def update_citas(id:int,CitasBase:CitasBase,db:Session = Depends(get_db)):
     return data;
 
 
-@router.post('/')
-def list_horarios():
-    return;
+@router.post('/plantillaHorarios',response_model=List[PlantillaHorariosSquema])
+def list_plantillas_horarios(PlantillaHorariosBase:PlantillaHorariosBase,db:Session = Depends(get_db)):
 
+    plantilla = []
+    hora = datetime.strptime(str(PlantillaHorariosBase.horaInicio),'%H:%M:%S')
+    for orden in range(PlantillaHorariosBase.cupos):
+        hora+=timedelta(minutes=int(PlantillaHorariosBase.minutos.minute))
+        plantilla.append({
+            "idprogramacion":PlantillaHorariosBase.idprogramacion,
+            "orden":orden + 1,
+            "fecha":PlantillaHorariosBase.fecha,
+            "hora":hora.strftime('%H:%M:%S'),
+            "cita":db.query(Citas).filter(Citas.idprogramacion == PlantillaHorariosBase.idprogramacion,Citas.orden == orden + 1).first()
+        })
+    return plantilla

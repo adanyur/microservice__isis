@@ -69,13 +69,3 @@ class ProgramacionEspecialidadesEsquema(BaseModel):
     especialidad:EspecialidadesModel = None
     class Config:
         orm_mode = True
-
-
-class ProgramacionMedicosEsquema(BaseModel):
-    id:int
-    cupos:int   = None
-    minutos:time  = None
-    idespecialidad:int
-    medico:MedicosModel
-    class Config:
-        orm_mode = True
