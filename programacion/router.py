@@ -1,7 +1,7 @@
 from fastapi import Depends,APIRouter, HTTPException
 from sqlalchemy import distinct
 from models import Programacion,create_table
-from schemas import ProgramacionSchema,ProgramacionBase,ProgramacionEspecialidadesEsquema
+from schemas import ProgramacionSchema,ProgramacionBase,ProgramacionEspecialidadesEsquema,ProgramacionParameters
 from typing import List
 from sqlalchemy.orm import Session
 from db import get_db
@@ -46,9 +46,9 @@ def get_fecha_especialidad_programacion(fecha:str,db:Session = Depends(get_db)):
     return especialidad_data
 
 
-@router.get('/listMedicos/{fecha}/{idespecialidad}',response_model=List[ProgramacionSchema])
-def get_fecha_medico_programacion(fecha:str,idespecialidad:int,db:Session = Depends(get_db)):
-    return  db.query(Programacion).filter(Programacion.fecha==fecha , Programacion.idespecialidad==idespecialidad).all()
+@router.post('/listMedicos',response_model=List[ProgramacionSchema])
+def get_fecha_medico_programacion(ProgramacionParameters:ProgramacionParameters,db:Session = Depends(get_db)):
+    return  db.query(Programacion).filter(Programacion.fecha==ProgramacionParameters.fecha , Programacion.idespecialidad==ProgramacionParameters.especialidad).all()
 
 
 @router.post('/create')
@@ -68,6 +68,7 @@ def update_programacion(id:int,programacionBase:ProgramacionBase,db:Session = De
 
     for key,value in programacionBase.dict(exclude_unset=True).items():
         setattr(data,key,value)
+        
     db.add(data)
     db.commit()
     db.refresh(data)
@@ -79,10 +80,6 @@ def delete_programacion(id:int,db:Session = Depends(get_db)):
     data = db.query(Programacion).filter(Programacion.id == id).first()
     if not data:
         raise HTTPException(status_code=404, detail='No existe programacion')
-
     db.delete(data)
     db.commit()
     return {"message":f''' Se eleimino la programacion con el id {id} ''' }
-
-
-

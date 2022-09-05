@@ -1,5 +1,5 @@
-from fastapi import Depends,APIRouter, HTTPException
-from models import Medico,Consultorio,Especialidad,Turno,create_table,TipoDocumento
+from fastapi import Depends,APIRouter
+from models import Medico,Consultorio,Especialidad,Turno,create_table,TipoDocumento,Servicio
 from schemas import MedicosBase,EspecialidadesBase,TurnosBase,ConsultoriosBase
 from typing import List
 from sqlalchemy.orm import Session
@@ -14,13 +14,17 @@ def creates_tables():
     create_table()
     return {"message":"CREATE TABLE"}
 
+
 @router.get('/especialidades',response_model =List[EspecialidadesBase])
 def especialidades(db:Session = Depends(get_db)):
     return db.query(Especialidad).all()
 
+
+
 @router.get('/medicos',response_model =List[MedicosBase])
 def medicos(db:Session = Depends(get_db)):
     return db.query(Medico).all()
+
 
 @router.get('/medicos/{idespecialidad}',response_model =List[MedicosBase])
 def get_medicos(idespecialidad:int,db:Session = Depends(get_db)):
@@ -36,6 +40,12 @@ def turnos(db:Session = Depends(get_db)):
 def consultorios(db:Session = Depends(get_db)):
     return db.query(Consultorio).all()
 
-@router.get('/tipoDocumentos')
+
+@router.get('/tipodocumentos')
 def tipoDocumento(db:Session = Depends(get_db)):
     return db.query(TipoDocumento).all()
+
+
+@router.get('/servicio')
+def servicio(db:Session = Depends(get_db)):
+    return db.query(Servicio).all()

@@ -1,70 +1,93 @@
-from re import I
-from typing import Optional
-from pydantic import BaseModel, Field
-from datetime import date, time
+from typing import List
+from modelBase import * 
 
 
-class Persona(BaseModel):
+class PersonaIn(PersonaBase):
+    class Config:
+        orm_mode = True
+
+class MedicoIn(MedicoBase):
+    class Config:
+        orm_mode = True
+
+class EspecialidadIn(EspecialidadBase):
+    class Config:
+        orm_mode = True
+
+class ConsultorioIn(ConsultorioBase):
+    class Config:
+        orm_mode = True
+
+class TurnoIn(TurnoBase):
+    class Config:
+        orm_mode = True
+
+class HistoriaIn(HistoriaBase):
+    class Config:
+        orm_mode = True
+
+class Citas(CitasBase):
+    class Config:
+        orm_mode = True
+    
+
+class Actomedico(BaseModel):
     id:int
-    paterno:str
-    materno:str
-    nombres:str
-    tipoDocumento:int
-    documento:str
-    fechaNacimiento:date
-    genero:int
+    idadminsion:int
+    class Config:
+        orm_mode = True
+
+class Admision(AdmisionBase):
+    actomedico:Actomedico = None
     class Config:
         orm_mode = True
 
 
 
-class Historia(BaseModel):
-    historia:int
-    persona:Persona = None
+#RELATIONS
+class ProgramacionIn(ProgramacionBase):
+    medico:MedicoIn = None
+    consultorio:ConsultorioIn = None
+    turno:TurnoIn = None
+    especialidad:EspecialidadIn = None
     class Config:
         orm_mode = True
 
+class CitaIn(CitasBase):
+    programacion:ProgramacionIn = None
+    class Config:
+        orm_mode = True
 
-class CitasSquema(BaseModel):
-    id:int
+class HistoriaPersonaIn(HistoriaBase):
+    persona:PersonaIn = None
+    class Config:
+       orm_mode = True
+
+
+class CitasIn(CitasBase):
+    paciente:HistoriaPersonaIn = None
+    admision:Admision =  None
+    class Config:
+        orm_mode= True
+
+
+class AgendaMedicaIn(ProgramacionIn):
+    citas:List[CitasIn] = None
+    
+    class Config:
+        orm_mode = True
+
+class PlantillaHorariosIn(BaseModel):
+    idprogramacion:int
     orden:int
-    fecha:date
     hora:time
-    observacion:str
-    paciente:Historia = None
+    fecha:date
+    cita:CitasIn = None
     class Config:
         orm_mode = True
 
-
-class CitasBase(BaseModel):
-    id:Optional[int]
-    idprogramacion: int
-    historia : int
-    orden : int
-    fecha : date
-    hora: time
-    observacion: Optional[str]
-    estado: Optional[str] = Field(default='A')
-
-
-
-class PlantillaHorariosSquema(BaseModel):
-    idprogramacion:int
-    orden: int
-    fecha:date
-    hora: time
-    cita:CitasSquema = None
+class AdmisionCitasIn(HistoriaBase):
+    persona:PersonaIn = None
+    cita:CitaIn = None
     class Config:
         orm_mode = True
-
-
-
-class PlantillaHorariosBase(BaseModel):
-    idprogramacion:int
-    cupos: int
-    minutos:time
-    horaInicio:time
-    fecha:date
-
-
-

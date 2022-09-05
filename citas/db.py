@@ -1,12 +1,14 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import MetaData
 
-# DATABASE__URL = "postgresql://postgres:2009@localhost:5432/bd_isis"
 DATABASE__URL = "postgresql://isisuser:csi20152@192.168.0.45:5432/isis"
 
 engine = create_engine(DATABASE__URL)
 sessionLocal = sessionmaker(bind=engine,autocommit=False,autoflush=False)
+Metadata = MetaData()    
+
 Base  = declarative_base()
 
 

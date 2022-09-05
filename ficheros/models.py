@@ -36,11 +36,25 @@ class Medico(Base):
 
 
 class TipoDocumento(Base):
-    __tablename__ = "tipoDocumento"
+    __tablename__ = "tipodocumento"
     id = Column(Integer, primary_key=True,autoincrement=True)
     descripcion = Column(String)
     abreviado = Column(String)
     sunat = Column(Integer)
+
+class Iafas(Base):
+    __tablename__ = "iafas"
+    id = Column(Integer, primary_key=True,autoincrement=True)
+    descripcion = Column(String)
+    codigoiafas = Column(Integer)
+    estado = Column(Boolean,default=True)
+
+
+class Servicio(Base):
+    __tablename__ = "servicio"
+    id = Column(Integer, primary_key=True,autoincrement=True)
+    descripcion = Column(String)
+    codigosunat = Column(Integer)
 
 
 def create_table():
