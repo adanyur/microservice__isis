@@ -33,15 +33,19 @@ class Citas(CitasBase):
 
 class Actomedico(BaseModel):
     id:int
-    idadminsion:int
+    idadmision:int
+    class Config:
+        orm_mode = True
+
+class Cobertura(CoberturaBase):
     class Config:
         orm_mode = True
 
 class Admision(AdmisionBase):
     actomedico:Actomedico = None
+    cobertura:Cobertura = None
     class Config:
         orm_mode = True
-
 
 
 #RELATIONS
@@ -73,7 +77,6 @@ class CitasIn(CitasBase):
 
 class AgendaMedicaIn(ProgramacionIn):
     citas:List[CitasIn] = None
-    
     class Config:
         orm_mode = True
 

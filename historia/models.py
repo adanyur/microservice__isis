@@ -1,8 +1,16 @@
 from db import Base,engine
 from sqlalchemy import Column,String,Integer,Time,Text,Date,ForeignKey,Boolean
 from sqlalchemy.orm import relationship,backref
+from sqlalchemy.types import UserDefinedType
 
 
+
+class TsVector(UserDefinedType):
+    
+    search = "TSVECTOR"
+    cache_ok = True
+    def get_col_spec(self):
+        return self.search
 
 
 class Persona(Base):
@@ -11,11 +19,12 @@ class Persona(Base):
     paterno = Column(String)
     materno = Column(String)
     nombres = Column(String)
-    tipoDocumento = Column(Integer)
+    tipodocumento = Column(Integer)
     documento =  Column(String)
-    fechaNacimiento = Column(Date)
+    fechanacimiento = Column(Date)
     genero = Column(Integer)
     estado = Column(Boolean)
+    search = Column(TsVector)
     historia = relationship('Historia',back_populates="persona", uselist=False)
 
 

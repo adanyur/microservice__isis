@@ -57,5 +57,40 @@ class Servicio(Base):
     codigosunat = Column(Integer)
 
 
+
+class Cobertura(Base):
+    __tablename__ = "cobertura"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    codigo = Column(String)
+    subcobertura = Column(String)
+    descripcion = Column(String)
+    estado = Column(Boolean)
+    
+
+class ProductoIafas(Base):
+    __tablename__ = "productoiafas"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    iafas = Column(String)
+    codigo = Column(String)
+    descripcion = Column(String)
+    iafasconcida = Column(String)
+    estado = Column(Boolean)
+
+
+class Cie10(Base):
+    __tablename__ = "cie10"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    codigo = Column(String)
+    descripcion = Column(String)
+    estado = Column(Boolean)
+
+class GrupoCie10(Base):
+    __tablename__ = "grupocie10"
+    id = Column(Integer, primary_key=True,autoincrement=True)
+    grupo = Column(String)
+    descripcion = Column(String)
+    estado = Column(Boolean)
+
+
 def create_table():
     Base.metadata.create_all(bind=engine)

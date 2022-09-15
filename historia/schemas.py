@@ -8,9 +8,9 @@ class PersonaBase(BaseModel):
     paterno:str 
     materno:str 
     nombres:str 
-    tipoDocumento:int 
+    tipodocumento:int 
     documento:str 
-    fechaNacimiento:date 
+    fechanacimiento:date 
     genero:int 
     estado:bool = Field(default=True)
     class Config:

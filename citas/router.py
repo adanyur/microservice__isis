@@ -1,7 +1,7 @@
 from fastapi import Depends,APIRouter, HTTPException
 from models import Citas,Programacion,Historia,Citas
 from modelBase import CreateCita,PlantillaHorariosBase
-from schemas import PlantillaHorariosIn,AgendaMedicaIn,AdmisionCitasIn
+from schemas import PlantillaHorariosIn,AgendaMedicaIn,AdmisionCitasIn,updateCita
 from sqlalchemy.orm import Session
 from db import get_db,Base,engine
 from typing import List
@@ -40,39 +40,44 @@ def create_citas(CreateCita:CreateCita,db:Session = Depends(get_db)):
     return row_item
 
 
-@router.put('/update/{id}')
-def update_citas(id:int,CreateCita:CreateCita,db:Session = Depends(get_db)):
-    data = db.query(Citas).filter(Citas.id == id).first()
-    if not data:
-        raise HTTPException(status_code=404,detail="Citas no existe")
-    return data;
+@router.post('/cambioestado')
+def update_citas(updateCita:updateCita,db:Session = Depends(get_db)):
+
+    estadoCita = {
+            "S":"SUSPENDIDO",
+            "R":"RESERVADO"
+    }
+
+    db.query(Citas).filter(Citas.id == updateCita.idcita).update(dict({"estado":updateCita.estado}))
+    db.commit()
+    return {"message":f'''Se cambio estado de la cita a {estadoCita[updateCita.estado]}'''}
 
 
 
-def cita_find(data,idprogramacion:int,orden:int):
+def citaFind(data,idprogramacion:int,orden:int):
     return next((item for item in data if item.idprogramacion == idprogramacion and item.orden == orden),None)
+
 
 @router.post('/plantillaHorarios',response_model=List[PlantillaHorariosIn])
 def list_plantillas_horarios(PlantillaHorariosBase:PlantillaHorariosBase,db:Session = Depends(get_db)):
 
-    data = db.query(Citas).filter(Citas.idprogramacion == PlantillaHorariosBase.idprogramacion).all()
+    data = db.query(Citas).filter(Citas.idprogramacion == PlantillaHorariosBase.idprogramacion,Citas.estado != 'S').all()
     plantilla = []
     hora = datetime.strptime(str(PlantillaHorariosBase.horaInicio),'%H:%M:%S')
     for orden in range(PlantillaHorariosBase.cupos):
         hora+=timedelta(minutes=int(PlantillaHorariosBase.minutos.minute))      
-
         plantilla.append({
             "idprogramacion":PlantillaHorariosBase.idprogramacion,
             "orden":orden + 1,
             "fecha":PlantillaHorariosBase.fecha,
             "hora":hora.strftime('%H:%M:%S'),
-            "cita": cita_find(data,PlantillaHorariosBase.idprogramacion,orden + 1)
+            "cita": citaFind(data,PlantillaHorariosBase.idprogramacion,orden + 1)
         })
     return plantilla
 
 
 @router.get('/agendamedica/{fecha}',response_model=List[AgendaMedicaIn])
-def list_agendamedica(fecha:str = date.today() ,db:Session = Depends(get_db)):
+def list_agendamedica(fecha:str = date.today() ,db:Session = Depends(get_db)) -> AgendaMedicaIn:
     return db.query(Programacion).filter(Programacion.fecha == fecha).all()
 
 

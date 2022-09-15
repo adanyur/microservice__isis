@@ -24,6 +24,13 @@ class MedicoBase(BaseModel):
     id:Optional[int]
     nombres:Optional[str]
 
+class CoberturaBase(BaseModel):
+    id:Optional[int]
+    codigo:str
+    subcobertura:str
+    descripcion:str
+
+
 class PlantillaHorariosBase(BaseModel):
     idprogramacion:Optional[int]
     cupos: Optional[int]
@@ -33,6 +40,7 @@ class PlantillaHorariosBase(BaseModel):
 
 class CitasBase(BaseModel):
     id:Optional[int]
+    idprogramacion:int
     orden : Optional[int]
     fecha : Optional[date]
     hora: Optional[time]
@@ -42,6 +50,10 @@ class CitasBase(BaseModel):
 class CreateCita(CitasBase):
     idprogramacion:int
     historia:int
+
+class updateCita(BaseModel):
+    idcita:int
+    estado:str
 
 
 class ProgramacionBase(BaseModel):
@@ -72,8 +84,6 @@ class AdmisionBase(BaseModel):
     idcita:Optional[int]
     idacreditacion:Optional[int]
     idcobertura:Optional[int]
-    idatencion:Optional[int]
-    idtipocuenta:Optional[int]
     copagofijo:Optional[str]
     copagovariable:Optional[str]
     numeroautorizacion:Optional[str]

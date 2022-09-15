@@ -23,4 +23,4 @@ def create_admision(AdmisionBase:AdmisionBase,db:Session = Depends(get_db)):
     db.commit()
     # db.refresh(row_item)
     # return row_item
-    return {"message": "successfully"}
+    return {"message": "Se genero la admision"}

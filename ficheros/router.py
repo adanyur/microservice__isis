@@ -1,5 +1,5 @@
 from fastapi import Depends,APIRouter
-from models import Medico,Consultorio,Especialidad,Turno,create_table,TipoDocumento,Servicio
+from models import Medico,Consultorio,Especialidad,Turno,create_table,TipoDocumento,Servicio,Cie10
 from schemas import MedicosBase,EspecialidadesBase,TurnosBase,ConsultoriosBase
 from typing import List
 from sqlalchemy.orm import Session
@@ -49,3 +49,7 @@ def tipoDocumento(db:Session = Depends(get_db)):
 @router.get('/servicio')
 def servicio(db:Session = Depends(get_db)):
     return db.query(Servicio).all()
+
+@router.get('/cie10')
+def cie10(search:str,db:Session = Depends(get_db)):
+    return db.query(Cie10).filter(Cie10.estado == True, Cie10.codigo.like(f'''%{search}%''') | Cie10.descripcion.like(f'''%{search}%''')).all();

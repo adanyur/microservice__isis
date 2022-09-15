@@ -7,37 +7,22 @@ class Cita(Base):
     __tablename__ = 'cita'
     id = Column(Integer, primary_key=True)
 
-# class Cobertura(Base):
-#     __tablename__ = 'cobertura'
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#     codigocobertura = Column(Integer)
-#     descripcion = Column(String)
-#     estado = Column(Boolean)
+class Cobertura(Base):
+    __tablename__ = 'cobertura'
+    id = Column(Integer, primary_key=True)
 
 
-# class SubCobertura(Base):
-#     __tablename__ = 'subcobertura'
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#     idcobertura = Column(Integer,ForeignKey("cobertura.id"))
-#     descripcion = Column(String)
-#     estado = Column(Boolean)
-
- 
 class Admision(Base):
     __tablename__ = 'admision'
     id = Column(Integer, primary_key=True, autoincrement=True)
     idcita = Column(Integer,ForeignKey('cita.id'))
-    # idacreditacion = Column(Integer, ForeignKey('idacreditacion.id'))
-    # idcobertura = Column(Integer,ForeignKey('cobertura.id'))
+    idcobertura = Column(Integer,ForeignKey('cobertura.id'))
     idacreditacion = Column(Integer)
-    idcobertura = Column(Integer)
-    idatencion = Column(Integer)
-    idtipocuenta = Column(Integer)
     copagofijo = Column(Integer)
     copagovariable = Column(Integer)
     numeroautorizacion = Column(String)
     fincarencia = Column(String)
-    observacion = Column(Text)
+    observacion = Column(Text,nullable=True)
     estado = Column(Boolean)
 
       

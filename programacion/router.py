@@ -1,9 +1,12 @@
 from fastapi import Depends,APIRouter, HTTPException
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy import distinct
 from models import Programacion,create_table
-from schemas import ProgramacionSchema,ProgramacionBase,ProgramacionEspecialidadesEsquema,ProgramacionParameters
+from schemas import ProgramacionSchema,ProgramacionBase,ProgramacionEspecialidadesEsquema,ProgramacionParameters,UpdateProgramacion
+from base import *
 from typing import List
 from sqlalchemy.orm import Session
+from utils import calcularCupo
 from db import get_db
 
 
@@ -52,12 +55,20 @@ def get_fecha_medico_programacion(ProgramacionParameters:ProgramacionParameters,
 
 
 @router.post('/create')
-def create_programacion(programacion:ProgramacionBase,db:Session = Depends(get_db)):
-    row_item = Programacion(**programacion.dict())
+def create_programacion(programacion:ProgramacionIn, db:Session = Depends(get_db)):
+
+    programacionData = programacion.dict(exclude={'medico','turno'})
+    programacionData['idmedico'] = programacion.medico.id
+    programacionData['idturno'] = programacion.turno.id
+    programacionData['minutos'] = programacion.medico.intervalo
+    programacionData['cupos'] = calcularCupo(programacion)
+
+    row_item = Programacion(**programacionData)
     db.add(row_item)
     db.commit()
     db.refresh(row_item)
-    return row_item
+    
+    return {"message":f''' Se genero la programacion'''}
 
 
 @router.put('/update/{id}')
@@ -73,6 +84,13 @@ def update_programacion(id:int,programacionBase:ProgramacionBase,db:Session = De
     db.commit()
     db.refresh(data)
     return {"message":f''' Se actualizado'''}
+
+@router.post('/cambioestado')
+def cambioestado_programacion(UpdateProgramacion:UpdateProgramacion,db:Session = Depends(get_db)):
+    db.query(Programacion).filter(Programacion.id == UpdateProgramacion.idprogramacion).update(dict({"estado":UpdateProgramacion.estado}))
+    db.commit()
+    return {"message":f''' Se cambio de estado'''}
+
 
 
 @router.delete('delete/{id}')
