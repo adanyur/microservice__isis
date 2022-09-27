@@ -1,0 +1,9 @@
+version: "1"
+
+services:
+  apigateway:
+    image: nginx
+    container_name: apigateway
+    build: .
+    ports:
+      - "8040:80"

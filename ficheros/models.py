@@ -1,5 +1,13 @@
 from db import Base,engine
 from sqlalchemy import Column,String,Integer,Time,Boolean
+from sqlalchemy.types import UserDefinedType
+
+class TsVector(UserDefinedType):
+    
+    search = "TSVECTOR"
+    cache_ok = True
+    def get_col_spec(self):
+        return self.search
 
 
 class Especialidad(Base):
@@ -83,6 +91,7 @@ class Cie10(Base):
     codigo = Column(String)
     descripcion = Column(String)
     estado = Column(Boolean)
+    search = Column(TsVector)
 
 class GrupoCie10(Base):
     __tablename__ = "grupocie10"

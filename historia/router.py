@@ -20,7 +20,13 @@ def get_historia(id:int,db:Session = Depends(get_db)):
 @router.get('/autocomplete/{search}',response_model=list[ViewPersona])
 
 def get_like_paciente(search:str,db:Session = Depends(get_db)):
-    return db.query(Persona).filter(Persona.search.match(search.replace(" ", "&")),Persona.historia != None).all()
+    
+    return db.query(Persona).filter(Persona.estado == True, 
+            Persona.paterno.like(f'''{search}%''') | 
+            Persona.materno.like(f'''{search}%''') |
+            Persona.nombres.like(f'''{search}%''') |
+            Persona.documento.like(f'''{search}%''')
+            ).all();
 
 
 @router.post('/create')
@@ -37,4 +43,11 @@ def create_historia(CreateHistoria:CreateHistoria,db:Session = Depends(get_db)):
         db.add(create_historia)
         db.commit()
         db.refresh(create_historia)
-        return {"message":"Paciente registrado  "}
+        return {"message":"Paciente registrado"}
+
+
+
+@router.put('/update')
+def update_historia():
+
+    return {}
