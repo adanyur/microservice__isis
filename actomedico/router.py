@@ -40,8 +40,9 @@ def create_actomedico(ActomedicoIn:ActomedicoIn,db:Session = Depends(get_db)):
 @router.put('/update/{idactomedico}')
 def update_actomedico(idactomedico:int,ActomedicoIn:ActomedicoIn,db:Session = Depends(get_db)):
 
-    data = db.query(Actomedico).filter(Actomedico.id == idactomedico).update(dict(ActomedicoIn.dict(exclude={'antecedentes','diagnosticos','recetas'})))
+    data = db.query(Actomedico).filter(Actomedico.id == idactomedico).update(dict(ActomedicoIn.dict(exclude={'antecedentes','diagnosticos','recetas','idcita'})))
     db.commit()
+    
     if data:
         create_many_items(db,Antencedente,ActomedicoIn.dict().pop('antecedentes'),'idactomedico',idactomedico)
         create_many_items(db,Diagnostico,ActomedicoIn.dict().pop('diagnosticos'),'idactomedico',idactomedico)

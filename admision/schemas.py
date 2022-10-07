@@ -7,7 +7,7 @@ from datetime import date, time
 class AdmisionBase(BaseModel):
     id:Optional[int]
     idcita:int
-    idacreditacion:Optional[int]
+    acreditacion:str
     idcobertura:Optional[int]
     copagofijo:Optional[str]
     copagovariable:Optional[str]

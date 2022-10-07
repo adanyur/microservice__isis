@@ -70,9 +70,9 @@ class PersonaBase(BaseModel):
     paterno:Optional[str]
     materno:Optional[str]
     nombres:Optional[str]
-    tipoDocumento:Optional[int]
+    tipodocumento:Optional[int]
     documento:Optional[str]
-    fechaNacimiento:Optional[date]
+    fechanacimiento:Optional[date]
     genero:Optional[int]
 
 class HistoriaBase(BaseModel):
@@ -82,7 +82,7 @@ class HistoriaBase(BaseModel):
 class AdmisionBase(BaseModel):
     id:Optional[int]
     idcita:Optional[int]
-    idacreditacion:Optional[int]
+    acreditacion:str
     idcobertura:Optional[int]
     copagofijo:Optional[str]
     copagovariable:Optional[str]

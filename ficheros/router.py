@@ -1,5 +1,5 @@
 from fastapi import Depends,APIRouter
-from models import Medico,Consultorio,Especialidad,Turno,create_table,TipoDocumento,Servicio,Cie10
+from models import Medico,Consultorio,Especialidad,Turno,create_table,TipoDocumento,Servicio,Cie10,Pais,Iafas
 from schemas import MedicosBase,EspecialidadesBase,TurnosBase,ConsultoriosBase
 from typing import List
 from sqlalchemy.orm import Session
@@ -54,5 +54,19 @@ def servicio(db:Session = Depends(get_db)):
 def cie10(search:str,db:Session = Depends(get_db)):
     return db.query(Cie10).filter(Cie10.estado == True, Cie10.codigo.like(f'''{search}%''') | Cie10.descripcion.like(f'''{search}%''')).order_by(Cie10.descripcion).all();
     
+
+
+async def lista_paises(db:Session):
+ return db.query(Pais).order_by(Pais.descr).all()
+
+
+@router.get('/paises')
+async def listado_paises(db:Session = Depends(get_db)):
+    return await lista_paises(db)
+
+
+@router.get('/iafas')
+async def listado_iafas(db:Session = Depends(get_db)):
+    return db.query(Iafas).all()    
 
 

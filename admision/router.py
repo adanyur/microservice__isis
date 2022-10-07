@@ -18,9 +18,13 @@ def creates_tables():
 
 @router.post('/create')
 def create_admision(AdmisionBase:AdmisionBase,db:Session = Depends(get_db)):
+
+    admision = db.query(Admision).filter(Admision.idcita == AdmisionBase.idcita).first()
+    if admision:
+        return {"message": "la cita ya tiene una admision generada"}
+
+
     row_item = Admision(**AdmisionBase.dict(exclude={'persona'}))
     db.add(row_item)
     db.commit()
-    # db.refresh(row_item)
-    # return row_item
     return {"message": "Se genero la admision"}

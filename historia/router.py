@@ -21,7 +21,7 @@ def get_historia(id:int,db:Session = Depends(get_db)):
 
 def get_like_paciente(search:str,db:Session = Depends(get_db)):
     
-    return db.query(Persona).filter(Persona.estado == True, 
+    return db.query(Persona).filter(Persona.estado == True, Persona.historia != None,
             Persona.paterno.like(f'''{search}%''') | 
             Persona.materno.like(f'''{search}%''') |
             Persona.nombres.like(f'''{search}%''') |
@@ -32,10 +32,12 @@ def get_like_paciente(search:str,db:Session = Depends(get_db)):
 @router.post('/create')
 def create_historia(CreateHistoria:CreateHistoria,db:Session = Depends(get_db)):
     historia = CreateHistoria        
+    
     persona_data = Persona(**historia.dict().pop('persona'))
     db.add(persona_data)
     db.commit()
     db.refresh(persona_data)
+
     if persona_data:
         historia_data =  historia.dict(exclude={'persona'})
         historia_data['idpersona'] = persona_data.id

@@ -76,7 +76,7 @@ class Actomedico(Base):
 class Admision(Base):
     __tablename__='admision'
     id = Column(Integer,primary_key=True)
-    idacreditacion = Column(Integer)
+    acreditacion = Column(Text)
     idcobertura = Column(Integer,ForeignKey('cobertura.id'))
     idcita = Column(Integer, ForeignKey('cita.id'))
     copagofijo = Column(String)

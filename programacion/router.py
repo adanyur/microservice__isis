@@ -34,8 +34,8 @@ def get_programacion(id:int,db:Session = Depends(get_db)):
 @router.get('/listByFecha/{fecha}',response_model =List[ProgramacionSchema])
 def get_fecha_programacion(fecha:str,db:Session = Depends(get_db)):
     programacion_data =  db.query(Programacion).filter(Programacion.fecha==fecha).all()    
-    if not programacion_data:
-        raise   HTTPException(status_code=404, detail=f'''No se encontro programaciones con fecha {fecha}''')
+    # if not programacion_data:
+    #     raise   HTTPException(status_code=404, detail=f'''No se encontro programaciones con fecha {fecha}''')
     return programacion_data
 
 
@@ -44,8 +44,8 @@ def get_fecha_especialidad_programacion(fecha:str,db:Session = Depends(get_db)):
 
     especialidad_data = db.query(Programacion).distinct(Programacion.idespecialidad).filter(Programacion.fecha==fecha).all()
 
-    if not especialidad_data:
-        raise   HTTPException(status_code=404, detail=f'''No hay programacion para hoy {fecha}''')
+    # if not especialidad_data:
+    #     raise   HTTPException(status_code=404, detail=f'''No hay programacion para hoy {fecha}''')
     return especialidad_data
 
 

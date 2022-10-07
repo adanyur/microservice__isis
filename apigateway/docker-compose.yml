@@ -2,7 +2,7 @@ version: "1"
 
 services:
   apigateway:
-    image: nginx
+    image: nginx:alpine
     container_name: apigateway
     build: .
     ports:

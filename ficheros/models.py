@@ -50,14 +50,6 @@ class TipoDocumento(Base):
     abreviado = Column(String)
     sunat = Column(Integer)
 
-class Iafas(Base):
-    __tablename__ = "iafas"
-    id = Column(Integer, primary_key=True,autoincrement=True)
-    descripcion = Column(String)
-    codigoiafas = Column(Integer)
-    estado = Column(Boolean,default=True)
-
-
 class Servicio(Base):
     __tablename__ = "servicio"
     id = Column(Integer, primary_key=True,autoincrement=True)
@@ -93,12 +85,35 @@ class Cie10(Base):
     estado = Column(Boolean)
     search = Column(TsVector)
 
+
 class GrupoCie10(Base):
     __tablename__ = "grupocie10"
     id = Column(Integer, primary_key=True,autoincrement=True)
     grupo = Column(String)
     descripcion = Column(String)
     estado = Column(Boolean)
+
+
+
+class Pais(Base):
+    __tablename__ = "pais"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    descr = Column(String(50))
+    nacionalidad = Column(String(50))
+    cod_sunat = Column(Integer)
+    iso3166_n = Column(String(3))
+    iso3166_ch2 = Column(String(2))
+    iso3166_ch3 = Column(String(3))
+    activo = Column(Boolean)
+
+
+class Iafas(Base):
+    __tablename__ = "iafas"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    codigo = Column(String(5))
+    descripcion = Column(String(50))
+    ruc = Column(String(11))
+    siteds = Column(Boolean)
 
 
 def create_table():
