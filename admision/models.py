@@ -15,7 +15,7 @@ class Admision(Base):
     __tablename__ = 'admision'
     id = Column(Integer, primary_key=True, autoincrement=True)
     idcita = Column(Integer,ForeignKey('cita.id'))
-    idiafas = Column(Integer, ForeignKey('iafas.id'))
+    # idiafas = Column(Integer, ForeignKey('iafas.id'))
     idcobertura = Column(Integer,ForeignKey('cobertura.id'))
     acreditacion = Column(Text)
     condicionmedica = Column(Text)
@@ -24,9 +24,9 @@ class Admision(Base):
     numeroautorizacion = Column(String)
     fincarencia = Column(String)
     observacion = Column(Text,nullable=True)
-    tipoadmision = Column(String(1))
-    moneda = Column(Integer)
-    tipocambio = Column(Numeric(10,2))
+    # tipoadmision = Column(String(1))
+    # moneda = Column(Integer)
+    # tipocambio = Column(Numeric(10,2))
     estado = Column(String(1))
 
 

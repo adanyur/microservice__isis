@@ -6,7 +6,6 @@ from sqlalchemy.types import UserDefinedType
 
 
 class TsVector(UserDefinedType):
-    
     search = "TSVECTOR"
     cache_ok = True
     def get_col_spec(self):

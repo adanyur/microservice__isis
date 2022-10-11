@@ -7,11 +7,11 @@ from datetime import date, time
 class AdmisionBase(BaseModel):
     id:Optional[int]
     idcita:int
-    acreditacion:str
+    acreditacion:Optional[str]
     idcobertura:Optional[int]
     copagofijo:Optional[str]
     copagovariable:Optional[str]
     numeroautorizacion:Optional[str]
     fincarencia:Optional[str]
     observacion:str = Field(default=None)
-    estado : bool = Field(default=True)
+    estado : str = Field(default='A')

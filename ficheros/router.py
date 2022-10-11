@@ -20,15 +20,14 @@ def especialidades(db:Session = Depends(get_db))->List[EspecialidadesBase]:
     return db.query(Especialidad).order_by(Especialidad.descripcion).all()
 
 
+@router.get('/especialidades/{id}')
+async def listById_especialidad(id:int,db:Session = Depends(get_db))->EspecialidadesBase:
+    return db.query(Especialidad).filter(Especialidad.id == id).first()
 
-@router.get('/medicos',response_model = List[MedicosBase])
-def medicos(db:Session = Depends(get_db))->List[MedicosBase]:
-    return db.query(Medico).order_by(Medico.nombres).all()
 
 
-@router.get('/medicos/{idespecialidad}',response_model =List[MedicosBase])
-def get_medicos(idespecialidad:int,db:Session = Depends(get_db)):
-    return db.query(Medico).filter(Medico.idespecialidad==idespecialidad).order_by(Medico.nombres).all()
+
+
 
 
 @router.get('/turnos',response_model = List[TurnosBase])
@@ -69,4 +68,14 @@ async def listado_paises(db:Session = Depends(get_db)):
 async def listado_iafas(db:Session = Depends(get_db)):
     return db.query(Iafas).all()    
 
+
+
+@router.get('/medicos',response_model = List[MedicosBase])
+def medicos(db:Session = Depends(get_db))->List[MedicosBase]:
+    return db.query(Medico).order_by(Medico.nombres).all()
+
+
+@router.get('/medicos/{idespecialidad}',response_model =List[MedicosBase])
+def get_medicos(idespecialidad:int,db:Session = Depends(get_db)):
+    return db.query(Medico).filter(Medico.idespecialidad==idespecialidad).order_by(Medico.nombres).all()
 

@@ -82,7 +82,7 @@ class HistoriaBase(BaseModel):
 class AdmisionBase(BaseModel):
     id:Optional[int]
     idcita:Optional[int]
-    acreditacion:str
+    acreditacion:Optional[str]
     idcobertura:Optional[int]
     copagofijo:Optional[str]
     copagovariable:Optional[str]

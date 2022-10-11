@@ -107,6 +107,12 @@ class Pais(Base):
     activo = Column(Boolean)
 
 
+
+# class Departamento(Base):
+#     __tablename__ = "departamento"
+    
+
+
 class Iafas(Base):
     __tablename__ = "iafas"
     id = Column(Integer, primary_key=True, autoincrement=True)
