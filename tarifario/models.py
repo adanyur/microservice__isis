@@ -1,6 +1,6 @@
 
 from db import Base,engine
-from sqlalchemy import Column,String,Integer,Time,Text,Date,ForeignKey,Boolean
+from sqlalchemy import Column,String,Integer,Time,Text,Date,ForeignKey,Boolean,Numeric
 from sqlalchemy.orm import relationship
 
 
@@ -11,8 +11,9 @@ class Tarifario(Base):
     subtitulo = Column(String(3))
     codigo = Column(String(6))
     descripcion = Column(String(500))
-    descripcion = Column(String(250))
+    unidad = Column(Numeric(10,2))
     grupocontable = Column(Integer)
+    codigosunat = Column(String(8))
     cpms = Column(String(10))
     estado = Column(Boolean)
 
