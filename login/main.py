@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from router import (tarifario, tarifarioGrupo, tarifarioSubTitulo,
-                    tarifarioTitulo)
+from router import router
 
 app = FastAPI()
 
@@ -15,7 +14,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(tarifario)
-app.include_router(tarifarioTitulo)
-app.include_router(tarifarioSubTitulo)
-app.include_router(tarifarioGrupo)
+app.include_router(router)

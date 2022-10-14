@@ -1,8 +1,8 @@
-from typing import Optional
-from pydantic import BaseModel,Field
 from datetime import date, time
-from base import *
+from typing import Optional
 
+from base import *
+from pydantic import BaseModel, Field
 
 
 class ProgramacionParameters(BaseModel):

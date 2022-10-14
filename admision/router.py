@@ -1,11 +1,11 @@
-from fastapi import Depends,APIRouter, HTTPException
-from sqlalchemy import distinct
-from models import create_table,Admision
 from typing import List
-from sqlalchemy.orm import Session
-from schemas import AdmisionBase
-from db import get_db
 
+from db import get_db
+from fastapi import APIRouter, Depends
+from models import Admision, create_table
+from schemas import AdmisionBase
+from sqlalchemy import distinct
+from sqlalchemy.orm import Session
 
 router = APIRouter(prefix='/admision',tags=['Admision'])
 

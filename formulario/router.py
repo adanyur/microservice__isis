@@ -1,11 +1,10 @@
-from fastapi import Depends,APIRouter, HTTPException
-from models import create_table,Formulario,Campos
-from schemas import FormularioOut
 from typing import List
-from sqlalchemy.orm import Session
+
 from db import get_db
-
-
+from fastapi import APIRouter, Depends
+from models import Campos, Formulario, create_table
+from schemas import FormularioOut
+from sqlalchemy.orm import Session
 
 router = APIRouter(prefix='/formulario',tags=['Formulario'])
 

@@ -1,8 +1,8 @@
-from db import Base,engine
-from sqlalchemy import Column,String,Integer,Time,Text,Date,ForeignKey,Boolean
-from sqlalchemy.orm import relationship,backref
+from db import Base, engine
+from sqlalchemy import (Boolean, Column, Date, ForeignKey, Integer, String,
+                        Text, Time)
+from sqlalchemy.orm import backref, relationship
 from sqlalchemy.types import UserDefinedType
-
 
 
 class TsVector(UserDefinedType):

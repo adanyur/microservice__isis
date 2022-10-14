@@ -1,12 +1,13 @@
-from fastapi import Depends,APIRouter, HTTPException
+from db import get_db
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import distinct
 from models import create_table
+from sqlalchemy import distinct
+
 #from schemas import ProgramacionSchema,ProgramacionBase,ProgramacionEspecialidadesEsquema,ProgramacionParameters,UpdateProgramacion
 #from typing import List
 #from sqlalchemy.orm import Session
 
-from db import get_db
 
 
 router = APIRouter(prefix='/consumo',tags=['Consumo'])

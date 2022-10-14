@@ -1,10 +1,12 @@
-from fastapi import Depends,APIRouter
-from models import Medico,Consultorio,Especialidad,Turno,create_table,TipoDocumento,Servicio,Cie10,Pais,Iafas
-from schemas import MedicosBase,EspecialidadesBase,TurnosBase,ConsultoriosBase
 from typing import List
-from sqlalchemy.orm import Session
-from db import get_db
 
+from db import get_db
+from fastapi import APIRouter, Depends
+from models import (Cie10, Consultorio, Especialidad, Iafas, Medico, Pais,
+                    Servicio, TipoDocumento, Turno, create_table)
+from schemas import (ConsultoriosBase, EspecialidadesBase, MedicosBase,
+                     TurnosBase)
+from sqlalchemy.orm import Session
 
 router = APIRouter(prefix='/ficheros',tags=['Ficheros'])
 

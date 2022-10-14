@@ -1,0 +1,346 @@
+{
+  "User": {
+    "id": 1,
+    "username": "admin",
+    "email": "admin@clinicasantaisabel.com",
+    "is_superuser": true,
+    "id_rol": null
+  },
+  "Rol": [
+    {
+      "nombre": "SUPERADMIN",
+      "menu": [
+        {
+          "id": 1,
+          "nivel": 0,
+          "nombres": "admision",
+          "padre": null,
+          "accion": null,
+          "icono": "admision.svg",
+          "estado": true
+        },
+        {
+          "id": 32,
+          "nivel": 0,
+          "nombres": "caja",
+          "padre": null,
+          "accion": null,
+          "icono": "caja.svg",
+          "estado": true
+        },
+        {
+          "id": 21,
+          "nivel": 0,
+          "nombres": "calidad",
+          "padre": null,
+          "accion": null,
+          "icono": "calidad.svg",
+          "estado": true
+        },
+        {
+          "id": 29,
+          "nivel": 0,
+          "nombres": "quirofanos",
+          "padre": null,
+          "accion": null,
+          "icono": "admision.svg",
+          "estado": true
+        },
+        {
+          "id": 24,
+          "nivel": 0,
+          "nombres": "reclamos",
+          "padre": null,
+          "accion": null,
+          "icono": "reclamos.svg",
+          "estado": true
+        },
+        {
+          "id": 16,
+          "nivel": 0,
+          "nombres": "seguridad",
+          "padre": null,
+          "accion": null,
+          "icono": "seguridad.svg",
+          "estado": true
+        },
+        {
+          "id": 7,
+          "nivel": 1,
+          "nombres": "citas",
+          "padre": 1,
+          "accion": null,
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 11,
+          "nivel": 1,
+          "nombres": "ficheros",
+          "padre": 1,
+          "accion": null,
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 34,
+          "nivel": 1,
+          "nombres": "ficheros",
+          "padre": 32,
+          "accion": null,
+          "icono": null,
+          "estado": true
+        },
+        {
+          "id": 17,
+          "nivel": 1,
+          "nombres": "ficheros",
+          "padre": 16,
+          "accion": null,
+          "icono": "paper-plane",
+          "estado": true
+        },
+        {
+          "id": 22,
+          "nivel": 1,
+          "nombres": "formato",
+          "padre": 21,
+          "accion": null,
+          "icono": " ",
+          "estado": true
+        },
+        {
+          "id": 2,
+          "nivel": 1,
+          "nombres": "pacientes",
+          "padre": 1,
+          "accion": null,
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 30,
+          "nivel": 1,
+          "nombres": "procesos",
+          "padre": 29,
+          "accion": null,
+          "icono": null,
+          "estado": true
+        },
+        {
+          "id": 3,
+          "nivel": 2,
+          "nombres": "acreditacion",
+          "padre": 2,
+          "accion": "/admision/pacientes/acreditacion",
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 9,
+          "nivel": 2,
+          "nombres": "acto medico",
+          "padre": 7,
+          "accion": "/home/actomedico",
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 4,
+          "nivel": 2,
+          "nombres": "admision",
+          "padre": 2,
+          "accion": "/home/admision",
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 37,
+          "nivel": 2,
+          "nombres": "agenda",
+          "padre": 7,
+          "accion": "/home/agendasecretaria",
+          "icono": null,
+          "estado": true
+        },
+        {
+          "id": 10,
+          "nivel": 2,
+          "nombres": "agenda medica",
+          "padre": 7,
+          "accion": "/home/agendamedica",
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 6,
+          "nivel": 2,
+          "nombres": "consulta atenciones",
+          "padre": 2,
+          "accion": "/home/consultatenciones",
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 15,
+          "nivel": 2,
+          "nombres": "consultorios",
+          "padre": 11,
+          "accion": "/home/ficheros/consultorios",
+          "tabla": 3,
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 12,
+          "nivel": 2,
+          "nombres": "especialidades",
+          "padre": 11,
+          "accion": "/home/ficheros/especialidades",
+          "tabla": 1,
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 23,
+          "nivel": 2,
+          "nombres": "f419 - reporte de i/ea",
+          "padre": 22,
+          "accion": "/home/calidad/f419",
+          "icono": " ",
+          "estado": true
+        },
+        {
+          "id": 5,
+          "nivel": 2,
+          "nombres": "historia clinica",
+          "padre": 2,
+          "accion": "/home/historia",
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 13,
+          "nivel": 2,
+          "nombres": "medicos",
+          "padre": 11,
+          "accion": "/home/ficheros/medicos",
+          "tabla": 4,
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 35,
+          "nivel": 2,
+          "nombres": "medios de pagosss",
+          "padre": 34,
+          "accion": "/home/ficheros/mediopago",
+          "tabla": 8,
+          "icono": null,
+          "estado": true
+        },
+        {
+          "id": 20,
+          "nivel": 2,
+          "nombres": "modulos",
+          "padre": 17,
+          "accion": "/seguridad/ficheros/modulos",
+          "icono": "paper-plane",
+          "estado": true
+        },
+        {
+          "id": 33,
+          "nivel": 2,
+          "nombres": "pago de consumo",
+          "padre": 32,
+          "accion": "/home/caja/pagoconsumo",
+          "icono": null,
+          "estado": true
+        },
+        {
+          "id": 31,
+          "nivel": 2,
+          "nombres": "programacion",
+          "padre": 30,
+          "accion": "/home/programaciondesalas",
+          "icono": null,
+          "estado": false
+        },
+        {
+          "id": 8,
+          "nivel": 2,
+          "nombres": "programacion",
+          "padre": 7,
+          "accion": "/home/programacion",
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 25,
+          "nivel": 2,
+          "nombres": "registros",
+          "padre": 24,
+          "accion": "/home/reclamos/lista",
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 19,
+          "nivel": 2,
+          "nombres": "roles",
+          "padre": 17,
+          "accion": "/seguridad/ficheros/roles",
+          "icono": "paper-plane",
+          "estado": true
+        },
+        {
+          "id": 36,
+          "nivel": 2,
+          "nombres": "tipo comprobante",
+          "padre": 34,
+          "accion": "/home/ficheros/tipocomprobante",
+          "icono": null,
+          "estado": true
+        },
+        {
+          "id": 14,
+          "nivel": 2,
+          "nombres": "turnos",
+          "padre": 11,
+          "accion": "/home/ficheros/turnos",
+          "tabla": 2,
+          "icono": "",
+          "estado": true
+        },
+        {
+          "id": 18,
+          "nivel": 2,
+          "nombres": "usuarios",
+          "padre": 17,
+          "accion": "/seguridad/ficheros/usuarios",
+          "icono": "paper-plane",
+          "estado": true
+        },
+        {
+          "id": 27,
+          "nivel": 3,
+          "nombres": "nuevo",
+          "padre": 24,
+          "accion": "/home/reclamos/registrar",
+          "icono": null,
+          "estado": true
+        },
+        {
+          "id": 28,
+          "nivel": 3,
+          "nombres": "tramas",
+          "padre": 24,
+          "accion": "/home/reclamos/tramas",
+          "icono": null,
+          "estado": true
+        }
+      ]
+    }
+  ],
+  "Token": "044dc6cf18855237566edeb031e27d88ac1b1b3fec9241e402c8e644179f89d2"
+}

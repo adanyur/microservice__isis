@@ -1,11 +1,13 @@
-from fastapi import Depends,APIRouter, HTTPException
-from models import Citas,Programacion,Historia,Citas
-from modelBase import CreateCita,PlantillaHorariosBase
-from schemas import PlantillaHorariosIn,AgendaMedicaIn,AdmisionCitasIn,updateCita
-from sqlalchemy.orm import Session
-from db import get_db,Base,engine
+from datetime import date, datetime, timedelta
 from typing import List
-from datetime import datetime,timedelta,date
+
+from db import Base, engine, get_db
+from fastapi import APIRouter, Depends, HTTPException
+from modelBase import CreateCita, PlantillaHorariosBase
+from models import Citas, Historia, Programacion
+from schemas import (AdmisionCitasIn, AgendaMedicaIn, PlantillaHorariosIn,
+                     updateCita)
+from sqlalchemy.orm import Session
 
 router = APIRouter(prefix='/citas',tags=['Citas'])
 

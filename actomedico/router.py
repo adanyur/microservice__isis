@@ -1,12 +1,12 @@
 
-from fastapi import Depends,APIRouter, HTTPException
-from sqlalchemy import distinct
-from models import create_table,Actomedico,Antencedente,Diagnostico,Cita
-from schemas import ActomedicoIn,ActomedicoOu
 from typing import List
-from sqlalchemy.orm import Session
-from db import get_db,Base
 
+from db import Base, get_db
+from fastapi import APIRouter, Depends, HTTPException
+from models import Actomedico, Antencedente, Cita, Diagnostico, create_table
+from schemas import ActomedicoIn, ActomedicoOu
+from sqlalchemy import distinct
+from sqlalchemy.orm import Session
 
 router = APIRouter(prefix='/actomedico',tags=['Actomedico'])
 
